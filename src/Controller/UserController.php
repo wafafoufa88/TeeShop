@@ -17,6 +17,11 @@ class UserController extends AbstractController
     #[Route('/inscription', name: 'register', methods: ['GET','POST'])]
     public function register(Request $request, UserRepository $repository, UserPasswordHasherInterface $passewordHasher): Response
     {
+        if($this->getUser()) {
+            $this->addFlash('warning', "vous êtes connecté, inscription non autorisée. <a href='/logout'> Déconnexion </a>");
+            return $this->redirectToRoute('Show_home');
+        }
+        
         $user = new User();
         
         $form =$this ->createForm(RegisterFormType::class, $user)
@@ -38,7 +43,7 @@ class UserController extends AbstractController
 
             $this->addFlash('succes', "votre inscription a été correctement enregistée !");
 
-            return $this->redirectToRoute('Show_home');
+            return $this->redirectToRoute('app_login');
 
         }
         

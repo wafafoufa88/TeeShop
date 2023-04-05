@@ -9,23 +9,24 @@
             <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ path('Show_home') }}">Accueil</a>
             </li>
-            
+            {% if not app.user %} {# pour enlever connexion quand on est connecter #}
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('register') }}">Inscription</a>
             </li>
-
             <li class="nav-item">
-                <a class="nav-link" href="#">Connexion</a>
+                <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
             </li>
+            {% else %}
             
             <li class="nav-item">
                 <a class="nav-link" href="#">Mon compte</a>
             </li>
             
             <li class="nav-item">
-                <a class="nav-link" href="#">Déconnxion</a>
+                <a class="nav-link" href="{{ path('app_logout') }}">Déconnxion</a>
             </li>
-        
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}{# pour verifier le role d'un User, #}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Espace Admin
@@ -36,9 +37,9 @@
                 <li><a class="dropdown-item" href="#">Gestion des produits</a></li>
                 <li><a class="dropdown-item" href="#">Gestion des membres</a></li>
                 <li><a class="dropdown-item" href="#">Gestion des commandes</a></li>
-
             </ul>
             </li>
+        {% endif %}
         </ul>
         <div class="me-5">
         <a href="#" class="btn btn-warning btn-sm">panier <i class="bi bi-cart-check-fill"></i></a>
