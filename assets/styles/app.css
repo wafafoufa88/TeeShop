@@ -5,11 +5,16 @@
 }
 html, body{
     height:100%;
+    
 }
 body {
+    
     display: flex;
     flex-direction: column;
 }
 .content {
     flex-grow: 1;
+}
+.img-custom{
+    object-fit:contain;
 }
